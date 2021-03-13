@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -66,10 +67,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Student $student)
     {
         //
     }
@@ -77,46 +78,46 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Student $student)
     {
-        return $this->createOrEdit($user->id);
+        return $this->createOrEdit($student->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Student $student)
     {
-        return $this->storeOrUpdate($request, $user->id);
+        return $this->storeOrUpdate($request, $student->id);
     }
 
     /**
-     * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  \App\Student  $student
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function modalDestroy(User $user)
+    public function modalDestroy(Student $student)
     {
-        $data['user'] = $user;
+        $data['student'] = $student;
 
-        return view('admin.user.modal-destroy', $data);
+        return view('admin.student.modal-destroy', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Student $student)
     {
-        $data['success'] = $user->delete();
+        $data['success'] = $student->delete();
 
         Util::addToastToData($data, true);
 
@@ -125,13 +126,11 @@ class UserController extends Controller
 
     /**
      * @param null $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     protected function createOrEdit($id = null)
     {
-        $data['user'] = User::findOrNew($id);
-
-        return view('admin.user.modal-add-edit', $data);
+        //
     }
 
     /**
@@ -141,15 +140,7 @@ class UserController extends Controller
      */
     protected function storeOrUpdate($request, $id = null)
     {
-        $data = $request->validated();
-
-        $data['success'] = UtilHelper::updateOrCreate(User::class, $data, $id);
-
-        $data['refresh_table'] = true;
-
-        UtilHelper::addToastToData($data);
-
-        return response()->crud($data);
+        //
     }
 
     /**
@@ -162,6 +153,4 @@ class UserController extends Controller
         $_html .= '<a class="open-modal" href="'. route('users.destroy-modal', ['user' => $user->id]) .'" data-toggle="tooltip" title="'. __('models/user.action.delete') .'"><i class="fa fa-close text-danger"></i></a>';
         return $_html;
     }
-
-
 }
