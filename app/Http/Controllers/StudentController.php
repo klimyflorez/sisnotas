@@ -42,7 +42,7 @@ class StudentController extends Controller
         ]) ;
         $data['table'] = $table;
 
-        return view('admin.user.index', $data);
+        return view('admin.student.index', $data);
     }
 
     /**

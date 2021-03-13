@@ -3,11 +3,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">@lang('models/student.actions.destroy') - {{ $student->label }}</h4>
+                <h4 class="modal-title" id="myLargeModalLabel">@lang('models/student.actions.destroy') - {{ $student->first_name }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <h4 class="text-center text-danger">@lang('global.confirm_delete', ['label' => $student->label])</h4>
+                <h4 class="text-center text-danger">@lang('global.confirm_delete', ['label' => $student->first_name])</h4>
             </div>
             <div class="modal-footer">
                 {!! Form::button(__('global.no'), ['class' => 'btn btn-danger waves-effect text-left', 'data-dismiss' => 'modal']) !!}

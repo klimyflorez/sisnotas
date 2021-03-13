@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     @if($course->exists)
-                        <h4 class="modal-title" id="myLargeModalLabel">@lang('models/course.actions.edit') - {{ $course->label }}</h4>
+                        <h4 class="modal-title" id="myLargeModalLabel">@lang('models/course.actions.edit') - {{ $course->name }}</h4>
                     @else
                         <h4 class="modal-title" id="myLargeModalLabel">@lang('models/course.actions.add')</h4>
                     @endif
@@ -15,9 +15,17 @@
                         <!-- START REPEAT THIS COL -->
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
-                                {!! Form::text('item', $course->item, ['class' => 'form-control']) !!}
+                                {!! Form::text('name', $course->name, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('item', __('models/course.fillable.item')) !!}
+                                {!! Form::label('name', __('models/course.fillable.name')) !!}
+                                <div class="invalid-feedback" data-feedback="item"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-40 focused">
+                                {!! Form::textarea('description', $course->description, ['class' => 'form-control']) !!}
+                                <span class="bar"></span>
+                                {!! Form::label('description', __('models/course.fillable.description')) !!}
                                 <div class="invalid-feedback" data-feedback="item"></div>
                             </div>
                         </div>

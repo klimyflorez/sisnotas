@@ -1,10 +1,11 @@
-{!! Form::open(['class' => 'save-ajax', 'url' => $student->exists? route('students.update', ['student' => $student->id]) : route('students.store'), 'method' => $student->exists? 'PUT' : 'POST']) !!}
+{!! Form::open(['class' => 'save-ajax', 'url' => $student->exists? route('students.update', ['student' => $student->id]) : route('students.store'),
+    'method' => $student->exists? 'PUT' : 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     @if($student->exists)
-                        <h4 class="modal-title" id="myLargeModalLabel">@lang('models/student.actions.edit') - {{ $student->label }}</h4>
+                        <h4 class="modal-title" id="myLargeModalLabel">@lang('models/student.actions.edit') - {{ $student->first_name }}</h4>
                     @else
                         <h4 class="modal-title" id="myLargeModalLabel">@lang('models/student.actions.add')</h4>
                     @endif
@@ -15,9 +16,33 @@
                         <!-- START REPEAT THIS COL -->
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
-                                {!! Form::text('item', $student->item, ['class' => 'form-control']) !!}
+                                {!! Form::number('identification', $student->identification, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('item', __('models/student.fillable.item')) !!}
+                                {!! Form::label('identification', __('models/student.fillable.identification')) !!}
+                                <div class="invalid-feedback" data-feedback="item"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-40 focused">
+                                {!! Form::text('first_name', $student->first_name, ['class' => 'form-control']) !!}
+                                <span class="bar"></span>
+                                {!! Form::label('first_name', __('models/student.fillable.first_name')) !!}
+                                <div class="invalid-feedback" data-feedback="item"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-40 focused">
+                                {!! Form::text('last_name', $student->item, ['class' => 'form-control']) !!}
+                                <span class="bar"></span>
+                                {!! Form::label('last_name', __('models/student.fillable.item')) !!}
+                                <div class="invalid-feedback" data-feedback="item"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-40 focused">
+                                {!! Form::text('phone', $student->phone, ['class' => 'form-control']) !!}
+                                <span class="bar"></span>
+                                {!! Form::label('phone', __('models/student.fillable.phone')) !!}
                                 <div class="invalid-feedback" data-feedback="item"></div>
                             </div>
                         </div>

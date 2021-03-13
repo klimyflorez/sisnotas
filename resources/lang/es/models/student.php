@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'module' => 'student|students',
+    'module' => 'Estudiante|Estudiantes',
     'fillable' => [
         'id' => '#',
         'identification' => 'Identificación',
@@ -10,8 +10,8 @@ return [
         'phone' => 'Teléfono'
     ],
     'actions' => [
-        'add' => 'Crear student',
-        'edit' => 'Editar student',
-        'destroy' => 'Eliminar student'
+        'add' => 'Crear estudiante',
+        'edit' => 'Editar estudiante',
+        'destroy' => 'Eliminar estudiante'
     ],
 ];
