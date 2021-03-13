@@ -1,6 +1,1 @@
-try {
-
-}catch (e) {
-
-}
-
+require('./bootstrap');
