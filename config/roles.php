@@ -96,7 +96,7 @@ return [
 
     'defaultSeeds' => [
         'PermissionsTableSeeder'        => env('ROLES_SEED_DEFAULT_PERMISSIONS', false),
-        'RolesTableSeeder'              => env('ROLES_SEED_DEFAULT_ROLES', false),
+        'RolesTableSeeder'              => env('ROLES_SEED_DEFAULT_ROLES', true),
         'ConnectRelationshipsSeeder'    => env('ROLES_SEED_DEFAULT_RELATIONSHIPS', false),
         'UsersTableSeeder'              => env('ROLES_SEED_DEFAULT_USERS', false),
     ],
