@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::namespace('Admin')->prefix('admin')->group(function (\Illuminate\Routing\Router $router) {
+    $router->get('users/{user}/destroy-modal', 'UserController@modalDestroy')->name('users.destroy-modal');
+    $router->resource('users', 'UserController');
+});
