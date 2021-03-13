@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::namespace('Admin')->prefix('admin')->group(function (\Illuminate\Routing\Router $router) {
+Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function (\Illuminate\Routing\Router $router) {
     $router->get('users/{user}/destroy-modal', 'UserController@modalDestroy')->name('users.destroy-modal');
     $router->resource('users', 'UserController');
 
