@@ -1,4 +1,4 @@
-{!! Form::open(['class' => 'save-ajax', 'url' => $student->exists? route('students.update', ['student' => $student->id]) : route('students.store'),
+{!! Form::open(['class' => 'crud_ajax', 'url' => $student->exists? route('students.update', ['student' => $student->id]) : route('students.store'),
     'method' => $student->exists? 'PUT' : 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
@@ -16,34 +16,35 @@
                         <!-- START REPEAT THIS COL -->
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
+                                {!! Form::label('identification', __('models/student.fillable.identification')) !!}
                                 {!! Form::number('identification', $student->identification, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('identification', __('models/student.fillable.identification')) !!}
-                                <div class="invalid-feedback" data-feedback="item"></div>
+                                <div class="invalid-feedback" data-feedback="identification"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
+                                {!! Form::label('first_name', __('models/student.fillable.first_name')) !!}
                                 {!! Form::text('first_name', $student->first_name, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('first_name', __('models/student.fillable.first_name')) !!}
-                                <div class="invalid-feedback" data-feedback="item"></div>
+                                <div class="invalid-feedback" data-feedback="first_name"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
-                                {!! Form::text('last_name', $student->item, ['class' => 'form-control']) !!}
+                                {!! Form::label('last_name', __('models/student.fillable.last_name')) !!}
+                                {!! Form::text('last_name', $student->last_name, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('last_name', __('models/student.fillable.item')) !!}
-                                <div class="invalid-feedback" data-feedback="item"></div>
+                                <div class="invalid-feedback" data-feedback="last_name"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
-                                {!! Form::text('phone', $student->phone, ['class' => 'form-control']) !!}
-                                <span class="bar"></span>
                                 {!! Form::label('phone', __('models/student.fillable.phone')) !!}
-                                <div class="invalid-feedback" data-feedback="item"></div>
+                                {!! Form::number('phone', $student->phone, ['class' => 'form-control']) !!}
+                                <span class="bar"></span>
+
+                                <div class="invalid-feedback" data-feedback="phone"></div>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

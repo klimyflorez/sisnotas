@@ -1,4 +1,4 @@
-{!! Form::open(['class' => 'save-ajax', 'url' => $subject->exists? route('subjects.update', ['subject' => $subject->id]) : route('subjects.store'), 'method' => $subject->exists? 'PUT' : 'POST']) !!}
+{!! Form::open(['class' => 'crud_ajax', 'url' => $subject->exists? route('subjects.update', ['subject' => $subject->id]) : route('subjects.store'), 'method' => $subject->exists? 'PUT' : 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -15,17 +15,17 @@
                         <!-- START REPEAT THIS COL -->
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
+                                {!! Form::label('name', __('models/subject.fillable.name')) !!}
                                 {!! Form::text('name', $subject->name, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('name', __('models/subject.fillable.name')) !!}
                                 <div class="invalid-feedback" data-feedback="item"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
+                                {!! Form::label('description', __('models/subject.fillable.description')) !!}
                                 {!! Form::text('description', $subject->description, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('description', __('models/subject.fillable.description')) !!}
                                 <div class="invalid-feedback" data-feedback="item"></div>
                             </div>
                         </div>

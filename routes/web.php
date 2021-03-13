@@ -27,7 +27,7 @@ Route::namespace('Admin')->prefix('admin')->group(function (\Illuminate\Routing\
     $router->resource('users', 'UserController');
 
     $router->get('students/{student}/destroy-modal', 'StudentController@modalDestroy')->name('students.destroy-modal');
-    $router->resource('students', 'UserController');
+    $router->resource('students', 'StudentController');
 
     $router->get('courses/{course}/destroy-modal', 'CourseController@modalDestroy')->name('courses.destroy-modal');
     $router->resource('courses', 'CourseController');

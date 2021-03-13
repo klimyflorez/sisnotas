@@ -1,4 +1,4 @@
-{!! Form::open(['class' => 'save-ajax', 'url' => $inscription->exists? route('inscriptions.update', ['inscription' => $inscription->id]) : route('inscriptions.store'), 'method' => $inscription->exists? 'PUT' : 'POST']) !!}
+{!! Form::open(['class' => 'crud_ajax', 'url' => $inscription->exists? route('inscriptions.update', ['inscription' => $inscription->id]) : route('inscriptions.store'), 'method' => $inscription->exists? 'PUT' : 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

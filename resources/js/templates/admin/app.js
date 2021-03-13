@@ -17,6 +17,8 @@ try{
     window.NProgress = require('nprogress');
     window.toastr = require('toastr');
 
+    window.$.fn.DataTable = require('./plugins/datatables/jquery.dataTables.min');
+    window.DatePaginator = require('./plugins/bootstrap-datepaginator/bootstrap-datepaginator');
 
     window.ClipboardJS = require('./plugins/clipboard/clipboard.min');
 

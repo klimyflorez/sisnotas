@@ -1,4 +1,4 @@
-{!! Form::open(['class' => 'save-ajax', 'url' => $course->exists? route('courses.update', ['course' => $course->id]) : route('courses.store'), 'method' => $course->exists? 'PUT' : 'POST']) !!}
+{!! Form::open(['class' => 'crud_ajax', 'url' => $course->exists? route('courses.update', ['course' => $course->id]) : route('courses.store'), 'method' => $course->exists? 'PUT' : 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -15,17 +15,17 @@
                         <!-- START REPEAT THIS COL -->
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
+                                {!! Form::label('name', __('models/course.fillable.name')) !!}
                                 {!! Form::text('name', $course->name, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('name', __('models/course.fillable.name')) !!}
                                 <div class="invalid-feedback" data-feedback="item"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
+                                {!! Form::label('description', __('models/course.fillable.description')) !!}
                                 {!! Form::textarea('description', $course->description, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
-                                {!! Form::label('description', __('models/course.fillable.description')) !!}
                                 <div class="invalid-feedback" data-feedback="item"></div>
                             </div>
                         </div>

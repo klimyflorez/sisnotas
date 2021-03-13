@@ -28,6 +28,7 @@ class StudentController extends Controller
             $query = Student::query();
 
             return DataTables::eloquent($query)
+                ->addIndexColumn()
                 ->addColumn('action', [$this, 'editActionColumn'])
                 ->orderColumn('id', '-id $1')
                 ->rawColumns(['id', 'action'])
@@ -164,6 +165,6 @@ class StudentController extends Controller
     {
         $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('students', ['students' => $student->id]);
+        return $tablePresenter->addEditDeleteActions('students', ['student' => $student->id]);
     }
 }
