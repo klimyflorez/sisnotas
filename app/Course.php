@@ -19,6 +19,14 @@ class Course extends Model
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class);
+    }
+
+    /**
      * @return array[]
      */
     public static function getColumnsTable(){

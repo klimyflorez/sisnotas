@@ -18,6 +18,22 @@ class Subject extends BaseModel
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    /**
      * @return array[]
      */
     public static function getColumnsTable(){
