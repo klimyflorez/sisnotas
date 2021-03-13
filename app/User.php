@@ -2,13 +2,22 @@
 
 namespace App;
 
+use App\Traits\EventManager;
+use App\Traits\UuidTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UuidTrait, EventManager;
+
+    /**
+     * Allow uuid as primary key on users table
+     *
+     * @var bool
+     */
+    protected $allowUuid = true;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password',
     ];
 
     /**
@@ -36,4 +45,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return array
+     */
+    public static function getColumnsTable(){
+        return [
+            ['data' => 'first_name', 'name' => 'first_name', 'title' => __('models/user.fillable.first_name')],
+            ['data' => 'last_name', 'name' => 'last_name', 'title' => __('models/user.fillable.last_name')],
+            ['data' => 'phone', 'name' => 'phone', 'title' => __('models/user.fillable.phone')],
+            ['data' => 'email', 'name' => 'email', 'title' => __('models/user.fillable.email')],
+        ];
+    }
 }
