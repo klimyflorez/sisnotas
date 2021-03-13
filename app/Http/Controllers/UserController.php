@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
@@ -56,10 +57,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         return $this->storeOrUpdate($request);
     }
@@ -89,11 +90,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         return $this->storeOrUpdate($request, $user->id);
     }
@@ -162,8 +163,6 @@ class UserController extends Controller
         $tablePresenter = new TablePresenter();
 
         return $tablePresenter->addEditDeleteActions('users', ['user' => $user->id]);
-
     }
-
 
 }
