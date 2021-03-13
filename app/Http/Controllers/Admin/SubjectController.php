@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SubjectRequest;
+use App\Subject;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Mappweb\Mappweb\Presenters\TablePresenter;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = User::query();
+            $query = Subject::query();
 
             return DataTables::eloquent($query)
                 ->addColumn('action', [$this, 'editActionColumn'])
@@ -32,7 +33,7 @@ class UserController extends Controller
                 ->toJson();
         }
 
-        $table->class = User::class;
+        $table->class = Subject::class;
         $table->addColumns();
         $table->addParameters();
         $table->parameters([
@@ -57,10 +58,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserRequest  $request
+     * @param  SubjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(SubjectRequest $request)
     {
         return $this->storeOrUpdate($request);
     }
@@ -68,10 +69,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Subject $subject)
     {
         //
     }
@@ -79,46 +80,46 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Subject $subject)
     {
-        return $this->createOrEdit($user->id);
+        return $this->createOrEdit($subject->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserRequest  $request
-     * @param  \App\User  $user
+     * @param  SubjectRequest  $request
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(SubjectRequest $request, Subject $subject)
     {
-        return $this->storeOrUpdate($request, $user->id);
+        return $this->storeOrUpdate($request, $subject->id);
     }
 
     /**
-     * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  \App\Subject  $subject
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function modalDestroy(User $user)
+    public function modalDestroy(Subject $subject)
     {
-        $data['user'] = $user;
+        $data['subject'] = $subject;
 
-        return view('admin.user.modal-destroy', $data);
+        return view('admin.subject.modal-destroy', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Subject $subject)
     {
-        $data['success'] = $user->delete();
+        $data['success'] = $subject->delete();
 
         Util::addToastToData($data, true);
 
@@ -127,13 +128,13 @@ class UserController extends Controller
 
     /**
      * @param null $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     protected function createOrEdit($id = null)
     {
-        $data['user'] = User::findOrNew($id);
+        $data['student'] = Subject::findOrNew($id);
 
-        return view('admin.user.modal-add-edit', $data);
+        return view('admin.student.modal-add-edit', $data);
     }
 
     /**
@@ -145,7 +146,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        $data['success'] = Util::updateOrCreate(User::class, $data, $id);
+        $data['success'] = Util::updateOrCreate(Subject::class, $data, $id);
 
         $data['refresh_table'] = true;
 
@@ -155,14 +156,13 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param Subject $subject
      * @return string
      */
-    public function editActionColumn(User $user)
+    public function editActionColumn(Subject $subject)
     {
         $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('users', ['user' => $user->id]);
+        return $tablePresenter->addEditDeleteActions('subjects', ['subject' => $subject->id]);
     }
-
 }

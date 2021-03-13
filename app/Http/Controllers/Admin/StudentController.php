@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Course;
-use App\Http\Requests\CourseRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentRequest;
+use App\Student;
+use App\User;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Mappweb\Mappweb\Presenters\TablePresenter;
 use Yajra\DataTables\Facades\DataTables;
 
-class CourseController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +25,7 @@ class CourseController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Course::query();
+            $query = Student::query();
 
             return DataTables::eloquent($query)
                 ->addColumn('action', [$this, 'editActionColumn'])
@@ -32,7 +34,7 @@ class CourseController extends Controller
                 ->toJson();
         }
 
-        $table->class = Course::class;
+        $table->class = Student::class;
         $table->addColumns();
         $table->addParameters();
         $table->parameters([
@@ -41,7 +43,7 @@ class CourseController extends Controller
         ]) ;
         $data['table'] = $table;
 
-        return view('admin.course.index', $data);
+        return view('admin.user.index', $data);
     }
 
     /**
@@ -57,10 +59,10 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CourseRequest  $request
+     * @param  StudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(StudentRequest $request)
     {
         return $this->storeOrUpdate($request);
     }
@@ -68,10 +70,10 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(Student $student)
     {
         //
     }
@@ -79,46 +81,46 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(Student $student)
     {
-        return $this->createOrEdit($course->id);
+        return $this->createOrEdit($student->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  CourseRequest  $request
-     * @param  \App\Course  $course
+     * @param  StudentRequest  $request
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(CourseRequest $request, Course $course)
+    public function update(StudentRequest $request, Student $student)
     {
-        return $this->storeOrUpdate($request, $course->id);
+        return $this->storeOrUpdate($request, $student->id);
     }
 
     /**
-     * @param  \App\Course  $course
+     * @param  \App\Student  $student
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function modalDestroy(Course $course)
+    public function modalDestroy(Student $student)
     {
-        $data['course'] = $course;
+        $data['student'] = $student;
 
-        return view('admin.course.modal-destroy', $data);
+        return view('admin.student.modal-destroy', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Course  $course
+     * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(Student $student)
     {
-        $data['success'] = $course->delete();
+        $data['success'] = $student->delete();
 
         Util::addToastToData($data, true);
 
@@ -131,9 +133,9 @@ class CourseController extends Controller
      */
     protected function createOrEdit($id = null)
     {
-        $data['course'] = Course::findOrNew($id);
+        $data['student'] = Student::findOrNew($id);
 
-        return view('admin.course.modal-add-edit', $data);
+        return view('admin.student.modal-add-edit', $data);
     }
 
     /**
@@ -145,7 +147,7 @@ class CourseController extends Controller
     {
         $data = $request->validated();
 
-        $data['success'] = Util::updateOrCreate(Course::class, $data, $id);
+        $data['success'] = Util::updateOrCreate(Student::class, $data, $id);
 
         $data['refresh_table'] = true;
 
@@ -155,13 +157,13 @@ class CourseController extends Controller
     }
 
     /**
-     * @param Course $student
+     * @param Student $student
      * @return string
      */
-    public function editActionColumn(Course $student)
+    public function editActionColumn(Student $student)
     {
         $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('courses', ['courses' => $student->id]);
+        return $tablePresenter->addEditDeleteActions('students', ['students' => $student->id]);
     }
 }

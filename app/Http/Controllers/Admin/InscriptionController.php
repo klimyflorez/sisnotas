@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StudentRequest;
+use App\Http\Controllers\Controller;
+use App\Inscription;
 use App\Student;
-use App\User;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Mappweb\Mappweb\Presenters\TablePresenter;
 use Yajra\DataTables\Facades\DataTables;
 
-class StudentController extends Controller
+class InscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class StudentController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Student::query();
+            $query = Inscription::query()->with(['course', 'student']);
 
             return DataTables::eloquent($query)
                 ->addColumn('action', [$this, 'editActionColumn'])
@@ -33,7 +33,7 @@ class StudentController extends Controller
                 ->toJson();
         }
 
-        $table->class = Student::class;
+        $table->class = Inscription::class;
         $table->addColumns();
         $table->addParameters();
         $table->parameters([
@@ -42,7 +42,7 @@ class StudentController extends Controller
         ]) ;
         $data['table'] = $table;
 
-        return view('admin.user.index', $data);
+        return view('admin.inscription.index', $data);
     }
 
     /**
@@ -58,10 +58,10 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StudentRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StudentRequest $request)
+    public function store(Request $request)
     {
         return $this->storeOrUpdate($request);
     }
@@ -69,10 +69,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Inscription  $inscription
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(Inscription $inscription)
     {
         //
     }
@@ -80,46 +80,46 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Inscription  $inscription
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(Inscription $inscription)
     {
-        return $this->createOrEdit($student->id);
+        return $this->createOrEdit($inscription->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  StudentRequest  $request
-     * @param  \App\Student  $student
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Inscription  $inscription
      * @return \Illuminate\Http\Response
      */
-    public function update(StudentRequest $request, Student $student)
+    public function update(Request $request, Inscription $inscription)
     {
-        return $this->storeOrUpdate($request, $student->id);
+        return $this->storeOrUpdate($request, $inscription->id);
     }
 
     /**
-     * @param  \App\Student  $student
+     * @param  \App\Inscription  $inscription
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function modalDestroy(Student $student)
+    public function modalDestroy(Inscription $inscription)
     {
-        $data['student'] = $student;
+        $data['inscription'] = $inscription;
 
-        return view('admin.student.modal-destroy', $data);
+        return view('admin.inscription.modal-destroy', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Inscription  $inscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Inscription $inscription)
     {
-        $data['success'] = $student->delete();
+        $data['success'] = $inscription->delete();
 
         Util::addToastToData($data, true);
 
@@ -132,9 +132,9 @@ class StudentController extends Controller
      */
     protected function createOrEdit($id = null)
     {
-        $data['student'] = Student::findOrNew($id);
+        $data['inscription'] = Inscription::findOrNew($id);
 
-        return view('admin.student.modal-add-edit', $data);
+        return view('admin.inscription.modal-add-edit', $data);
     }
 
     /**
@@ -156,13 +156,13 @@ class StudentController extends Controller
     }
 
     /**
-     * @param Student $student
+     * @param Inscription $inscription
      * @return string
      */
-    public function editActionColumn(Student $student)
+    public function editActionColumn(Inscription $inscription)
     {
         $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('students', ['students' => $student->id]);
+        return $tablePresenter->addEditDeleteActions('inscriptions', ['inscription' => $inscription->id]);
     }
 }
