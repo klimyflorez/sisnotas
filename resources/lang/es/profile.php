@@ -1,0 +1,41 @@
+<?php
+
+return [
+    'title_profile' => 'Mi Perfil',
+    'title_profile_view' => 'Ver mi Perfil',
+    'profile' => 'Perfil',
+    'nickname' => 'Usuario',
+    'first_name' => 'Nombres',
+    'last_name' => 'Apellidos',
+    'date_birthday' => 'Fecha de cumpleaños',
+    'avatar' => 'Avatar',
+    'social_networks' => 'Red Social',
+    'identification' => 'Identificación',
+    'email' => 'Email',
+    'phone_number' => 'Número',
+    'biografia' => 'Biografía',
+    'title_code_country' => 'Código país',
+    'title_country' => 'Seleccione país de residencia',
+    'title_button' => 'Actualizar Datos',
+    'title_button_plans' => 'Ampliar cuenta',
+    'tabs' => [
+        'my_information' => 'Información Personal',
+        'reset_password' => 'Contraseña',
+        'social_networks' => 'Redes Sociales',
+        'identity' => 'Verificar Identidad',
+    ],
+    'gender' => [
+        'title' => 'Género',
+        'male' => 'Masculino',
+        'female' => 'Femenino',
+    ],
+    'title_card_data' => 'Tus Datos',
+    'title_card_phone_number' => 'Télefono Móvil',
+    'title_card_topics' => 'Temas de Interés',
+    'title_button_check_identity' => 'Verificarme',
+    'menu' => [
+        'account_setting' => 'Configuración',
+    ],
+    'email_contat'=>'Dirección de correo electrónico',
+    'title_tooltip'=>'Solo Visible para usted. Su Dirección de correo eletrónico nunca se mostrará a los demás usuarios, ni siquiera a las personas que lo encuentran a través de buscadores como Google.',
+];
