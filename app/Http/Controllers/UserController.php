@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
+use Mappweb\Mappweb\Presenters\TablePresenter;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -143,11 +144,11 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        $data['success'] = UtilHelper::updateOrCreate(User::class, $data, $id);
+        $data['success'] = Util::updateOrCreate(User::class, $data, $id);
 
         $data['refresh_table'] = true;
 
-        UtilHelper::addToastToData($data);
+        Util::addToastToData($data);
 
         return response()->crud($data);
     }
@@ -158,9 +159,10 @@ class UserController extends Controller
      */
     public function editActionColumn(User $user)
     {
-        $_html = '<a class="btn open-modal" href="'. route('users.edit', ['user' => $user->id]) .'" data-toggle="tooltip" data-placement="right" title="'. __('models/user.action.edit') .'"><i class="fa fa-pencil text-primary"></i></a>';
-        $_html .= '<a class="open-modal" href="'. route('users.destroy-modal', ['user' => $user->id]) .'" data-toggle="tooltip" title="'. __('models/user.action.delete') .'"><i class="fa fa-close text-danger"></i></a>';
-        return $_html;
+        $tablePresenter = new TablePresenter();
+
+        return $tablePresenter->addEditDeleteActions('users', ['user' => $user->id]);
+
     }
 
 

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
-use App\User;
+use App\Course;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Mappweb\Mappweb\Presenters\TablePresenter;
 use Yajra\DataTables\Facades\DataTables;
 
-class StudentController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +22,7 @@ class StudentController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Student::query();
+            $query = Course::query();
 
             return DataTables::eloquent($query)
                 ->addColumn('action', [$this, 'editActionColumn'])
@@ -32,7 +31,7 @@ class StudentController extends Controller
                 ->toJson();
         }
 
-        $table->class = Student::class;
+        $table->class = Course::class;
         $table->addColumns();
         $table->addParameters();
         $table->parameters([
@@ -41,7 +40,7 @@ class StudentController extends Controller
         ]) ;
         $data['table'] = $table;
 
-        return view('admin.user.index', $data);
+        return view('admin.course.index', $data);
     }
 
     /**
@@ -68,10 +67,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(Course $course)
     {
         //
     }
@@ -79,46 +78,46 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(Course $course)
     {
-        return $this->createOrEdit($student->id);
+        return $this->createOrEdit($course->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, Course $course)
     {
-        return $this->storeOrUpdate($request, $student->id);
+        return $this->storeOrUpdate($request, $course->id);
     }
 
     /**
-     * @param  \App\Student  $student
+     * @param  \App\Course  $course
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function modalDestroy(Student $student)
+    public function modalDestroy(Course $course)
     {
-        $data['student'] = $student;
+        $data['course'] = $course;
 
-        return view('admin.student.modal-destroy', $data);
+        return view('admin.course.modal-destroy', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Course $course)
     {
-        $data['success'] = $student->delete();
+        $data['success'] = $course->delete();
 
         Util::addToastToData($data, true);
 
@@ -131,9 +130,9 @@ class StudentController extends Controller
      */
     protected function createOrEdit($id = null)
     {
-        $data['student'] = Student::findOrNew($id);
+        $data['course'] = Course::findOrNew($id);
 
-        return view('admin.student.modal-add-edit', $data);
+        return view('admin.course.modal-add-edit', $data);
     }
 
     /**
@@ -145,7 +144,7 @@ class StudentController extends Controller
     {
         $data = $request->validated();
 
-        $data['success'] = Util::updateOrCreate(Student::class, $data, $id);
+        $data['success'] = Util::updateOrCreate(Course::class, $data, $id);
 
         $data['refresh_table'] = true;
 
@@ -155,13 +154,13 @@ class StudentController extends Controller
     }
 
     /**
-     * @param Student $student
+     * @param Course $student
      * @return string
      */
-    public function editActionColumn(Student $student)
+    public function editActionColumn(Course $student)
     {
         $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('students', ['students' => $student->id]);
+        return $tablePresenter->addEditDeleteActions('courses', ['courses' => $student->id]);
     }
 }

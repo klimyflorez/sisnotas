@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
-use App\User;
+use App\Subject;
 use Illuminate\Http\Request;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Mappweb\Mappweb\Presenters\TablePresenter;
 use Yajra\DataTables\Facades\DataTables;
 
-class StudentController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +22,7 @@ class StudentController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Student::query();
+            $query = Subject::query();
 
             return DataTables::eloquent($query)
                 ->addColumn('action', [$this, 'editActionColumn'])
@@ -32,7 +31,7 @@ class StudentController extends Controller
                 ->toJson();
         }
 
-        $table->class = Student::class;
+        $table->class = Subject::class;
         $table->addColumns();
         $table->addParameters();
         $table->parameters([
@@ -68,10 +67,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(Subject $subject)
     {
         //
     }
@@ -79,46 +78,46 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(Subject $subject)
     {
-        return $this->createOrEdit($student->id);
+        return $this->createOrEdit($subject->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, Subject $subject)
     {
-        return $this->storeOrUpdate($request, $student->id);
+        return $this->storeOrUpdate($request, $subject->id);
     }
 
     /**
-     * @param  \App\Student  $student
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function modalDestroy(Student $student)
+    public function modalDestroy(Subject $subject)
     {
-        $data['student'] = $student;
+        $data['subject'] = $subject;
 
-        return view('admin.student.modal-destroy', $data);
+        return view('admin.subject.modal-destroy', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Subject $subject)
     {
-        $data['success'] = $student->delete();
+        $data['success'] = $subject->delete();
 
         Util::addToastToData($data, true);
 
@@ -131,7 +130,7 @@ class StudentController extends Controller
      */
     protected function createOrEdit($id = null)
     {
-        $data['student'] = Student::findOrNew($id);
+        $data['student'] = Subject::findOrNew($id);
 
         return view('admin.student.modal-add-edit', $data);
     }
@@ -145,7 +144,7 @@ class StudentController extends Controller
     {
         $data = $request->validated();
 
-        $data['success'] = Util::updateOrCreate(Student::class, $data, $id);
+        $data['success'] = Util::updateOrCreate(Subject::class, $data, $id);
 
         $data['refresh_table'] = true;
 
@@ -155,13 +154,13 @@ class StudentController extends Controller
     }
 
     /**
-     * @param Student $student
+     * @param Subject $subject
      * @return string
      */
-    public function editActionColumn(Student $student)
+    public function editActionColumn(Subject $subject)
     {
         $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('students', ['students' => $student->id]);
+        return $tablePresenter->addEditDeleteActions('subjects', ['subject' => $subject->id]);
     }
 }
