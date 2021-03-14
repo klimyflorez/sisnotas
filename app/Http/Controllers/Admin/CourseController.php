@@ -6,6 +6,7 @@ use App\Course;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
 use Mappweb\Mappweb\Presenters\TablePresenter;
@@ -163,10 +164,14 @@ class CourseController extends Controller
      */
     public function editActionColumn(Course $course)
     {
-        $buttons = '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Asginar materias"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
-        $tablePresenter = new TablePresenter();
-        $buttons .= '&nbsp;';
+        $auth = Auth::user();
+        $buttons = '<a href="'. route('course-students.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Listar Estudiantes"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+        if($auth->hasRole('admin')){
 
-        return $buttons.$tablePresenter->addEditDeleteActions('courses', ['course' => $course->id]);
+            $buttons .= '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Asginar materias"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+            $tablePresenter = new TablePresenter();
+            $buttons .= '&nbsp;'.$tablePresenter->addEditDeleteActions('courses', ['course' => $course->id]); ;
+        }
+       return $buttons;
     }
 }

@@ -14,7 +14,8 @@ class UserTableSeeder extends Seeder
         $table = \Illuminate\Support\Facades\DB::table('users');
         $this->truncateTable($table);
         $this->command->info('Insertanto usuarios');
-        $this->createUser();
+        $this->createUserAdmin();
+        $this->createUserTeacher();
         $this->showInfoMessage();
     }
 /*
@@ -31,18 +32,38 @@ class UserTableSeeder extends Seeder
         }
     }
 
-    private function createUser()
+    private function createUserAdmin()
     {
-        \App\User::create([
+
+        $roleAdmin = config('roles.models.role')::where('slug', '=', 'admin')->first();
+        $user = \App\User::create([
             'id' => \Illuminate\Support\Str::uuid(),
             'first_name' => 'Pepito',
             'last_name' => 'Plus',
-            'email' => 'pepito@docente.com',
+            'email' => 'admin@sisnotas.com',
+            'password' => bcrypt('@admin.1'),
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        $user->attachRole($roleAdmin);
+    }
+
+    private function createUserTeacher()
+    {
+
+        $roleAdmin = config('roles.models.role')::where('slug', '=', 'teacher')->first();
+        $user = \App\User::create([
+            'id' => \Illuminate\Support\Str::uuid(),
+            'first_name' => 'Pepito',
+            'last_name' => 'Plus',
+            'email' => 'teacher@sisnotas.com',
             'password' => bcrypt('@docente.1'),
             'email_verified_at' => now(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        $user->attachRole($roleAdmin);
     }
 
     /**

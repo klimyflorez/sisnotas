@@ -34,6 +34,14 @@ class Course extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function inscriptions()
+    {
+        return $this->hasMany(Inscription::class);
+    }
+
+    /**
      * @return array[]
      */
     public static function getColumnsTable(){

@@ -48,5 +48,13 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     $router->post('course-subjects', 'CourseSubjectController@store')->name('course-subjects.store');
     $router->delete('course-subjects/{course}/{subject}', 'CourseSubjectController@destroy')->name('course-subjects.destroy');
 
-    $router->get('course-student/{course}', 'CourseStudentController@index')->name('course-student.index');
+    $router->get('course-students/{course}', 'CourseStudentController@index')->name('course-students.index');
+    $router->get('course-students/{course}/{student}', 'CourseStudentController@create')->name('course-student.note-modal');
+
+    //$router->get('subject-teachers/{subject}/open-modal', 'SubjectTeacherController@openModalInscription')->name('subject-teachers.open-modal');
+    $router->get('subject-teachers/{subject}', 'SubjectTeacherController@index')->name('course-subjects.index');
+    $router->get('subject-teachers/{subject}/create', 'SubjectTeacherController@create')->name('subject-teachers.create');
+    $router->post('subject-teachers', 'SubjectTeacherController@store')->name('subject-teachers.store');
+    //$router->get('inscriptions/{inscription}/destroy-modal', 'SubjectTeacherController@modalDestroy')->name('inscriptions.destroy-modal');
+
 });

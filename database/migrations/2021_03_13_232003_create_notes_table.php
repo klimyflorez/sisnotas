@@ -16,7 +16,7 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('inscription_id');
-            $table->foreign('inscription_id')->references('id')->on('students')->onDelete('inscriptions')->onUpdate('cascade');
+            $table->foreign('inscription_id')->references('id')->on('inscriptions')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade')->onUpdate('cascade');
             $table->double('value', 4, 2);

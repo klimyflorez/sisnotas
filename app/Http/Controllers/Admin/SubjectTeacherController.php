@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Course;
 use App\Http\Controllers\Controller;
 use App\Subject;
+
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
+use phpDocumentor\Reflection\DocBlock\Tags\Version;
 use Yajra\DataTables\Facades\DataTables;
 
-class CourseSubjectController extends Controller
+class SubjectTeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index(Request $request, Table $table, Course $course)
+    public function index(Request $request, Table $table, Subject $subject)
     {
         if ($request->ajax()) {
-            $query = $course->subjects();
+
+            $query = $subject->users();
 
             return DataTables::eloquent($query)
                 ->addIndexColumn()
-                ->editColumn('subject_name', [$this, 'editSubjectNameColumn'])
+                ->editColumn('teacher_name', [$this, 'editTeacherNameColumn'])
                 ->addColumn('action', [$this, 'editActionColumn'])
                 ->orderColumn('id', '-id $1')
                 ->rawColumns(['id', 'action'])
@@ -35,7 +36,7 @@ class CourseSubjectController extends Controller
         }
 
         $table->addColumn(['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => '#', 'searchable' => false, 'orderable' => false]);
-        $table->addColumn(['data' => 'subject_name', 'name' => 'subject_name', 'title' => __('models/subject.fillable.name')]);
+        $table->addColumn(['data' => 'teacher_name', 'name' => 'teacher_name', 'title' => __('models/subject.fillable.name')]);
         $table->addAction();
         $table->addParameters();
         $table->parameters([
@@ -43,9 +44,9 @@ class CourseSubjectController extends Controller
             'serverSide' => true,
         ]) ;
         $data['table'] = $table;
-        $data['course'] = $course;
+        $data['subject'] = $subject;
 
-        return view('admin.course-subject.index', $data);
+        return view('admin.subject-teacher.index', $data);
     }
 
     /**
@@ -53,12 +54,15 @@ class CourseSubjectController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function create(Course $course)
+    public function create(Subject $subject)
     {
-        $data['subjects']= Subject::query()->pluck('name', 'id');
-        $data['course_id'] = $course->id;
 
-        return  view('admin.course-subject.modal-inscription', $data);
+        $data['teachers'] = User::query()->whereHas('roles', function ($query){
+            $query->where('slug', 'teacher');
+        })->pluck('first_name', 'id');
+        $data['subject_id']=$subject->id;
+
+        return view('admin.subject-teacher.modal-inscription', $data);
     }
 
     /**
@@ -72,10 +76,10 @@ class CourseSubjectController extends Controller
         $data['success'] = true;
 
         try {
-            $course = Course::query()->find($request->get('course_id'));
+
             $subject = Subject::query()->find($request->get('subject_id'));
-            $teacher = Auth::id();
-            $course->subjects()->attach($subject, ['id'=>Str::uuid(),'user_id'=>$teacher,'created_at'=>now(),'updated_at'=>now()]);
+            $teacher = User::query()->find($request->get('teacher_id'));
+            $subject->users()->attach($teacher, ['id'=>Str::uuid(),'created_at'=>now(),'updated_at'=>now()]);
 
         }catch (\Exception $exception){
             $data['success'] = false;
@@ -86,7 +90,6 @@ class CourseSubjectController extends Controller
         Util::addToastToData($data);
 
         return response()->crud($data);
-
     }
 
     /**
@@ -98,6 +101,14 @@ class CourseSubjectController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function openModalInscription($id){
+
+        $data['courses'] = Course::query()->pluck('name','id');
+        $data['student_id'] = $id;
+
+        return view('admin.inscription.modal-inscription', $data);
     }
 
     /**
@@ -124,41 +135,19 @@ class CourseSubjectController extends Controller
     }
 
     /**
-     * @param  \App\Course  $course
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function modalDestroy(Course $course, Subject  $subject)
-    {
-       // $data['id'] = //DB::table('course_subject')->where(['course_id' => $course->id, 'subject_id' => $subject->id])->first()->id;
-        $data['course'] = $course;
-
-        $data['subject'] = $subject;
-
-        return view('admin.course-subject.modal-destroy', $data);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course, Subject  $subject)
+    public function destroy($id)
     {
-        $data['success'] = true;
+        //
+    }
 
-        try {
-            $course->subjects()->detach($subject);
-
-        }catch (\Exception $exception){
-            $data['success'] = false;
-        }
-
-        $data['refresh_table'] = true;
-
-        Util::addToastToData($data);
-
-        return response()->crud($data);
+    public function editTeacherNameColumn($object)
+    {
+        return $object->full_name;
     }
 
     /**
@@ -168,11 +157,7 @@ class CourseSubjectController extends Controller
     public function editActionColumn($object)
     {
 
-        return '<a class="open-modal" href="'. route('course-subjects.destroy-modal', ['course' => $object->course_id, 'subject'=>$object->subject_id]) .'" data-toggle="tooltip" title="'. __('models/course-subject.action.delete') .'"><i class="fa fa-close text-danger"></i></a>';
+        //return '<a class="open-modal" href="'. route('course-student.note-modal', ['course' => $inscription->course_id, 'student'=>$inscription->student_id]) .'" data-toggle="tooltip" title="'. __('models/course-student.action.add') .'"><i class="fa fa-edit text-info"></i></a>';
 
-    }
-
-    public function editSubjectNameColumn($object){
-        return $object->name;
     }
 }
