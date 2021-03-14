@@ -57,4 +57,6 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     $router->post('subject-teachers', 'SubjectTeacherController@store')->name('subject-teachers.store');
     //$router->get('inscriptions/{inscription}/destroy-modal', 'SubjectTeacherController@modalDestroy')->name('inscriptions.destroy-modal');
 
+
+
 });

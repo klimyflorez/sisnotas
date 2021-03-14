@@ -9,9 +9,9 @@ return [
         'last_name' => 'Apellidos',
         'phone' => 'Teléfono'
     ],
-    'actions' => [
+    'action' => [
         'add' => 'Crear estudiante',
         'edit' => 'Editar estudiante',
-        'destroy' => 'Eliminar estudiante'
+        'delete' => 'Eliminar estudiante'
     ],
 ];

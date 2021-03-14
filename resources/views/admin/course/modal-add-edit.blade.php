@@ -17,15 +17,14 @@
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('name', __('models/course.fillable.name')) !!}
                                 {!! Form::text('name', $course->name, ['class' => 'form-control']) !!}
-                                <p class="help-block" data-feedback="name"></p>
+                                <p style="color:red" data-feedback="name"></p>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('description', __('models/course.fillable.description')) !!}
                                 {!! Form::textarea('description', $course->description, ['class' => 'form-control']) !!}
-
-                                <p class="help-block" data-feedback="description"></p>
+                                <p style="color:red" data-feedback="description"></p>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

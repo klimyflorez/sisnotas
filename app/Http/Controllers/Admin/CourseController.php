@@ -173,7 +173,7 @@ class CourseController extends Controller
     public function editActionColumn(Course $course)
     {
         $auth = Auth::user();
-        $buttons = '<a href="'. route('course-students.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Listar Estudiantes"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+        $buttons = '<a href="'. route('course-students.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Listar Estudiantes"><i class="fa fa-users text-inverse m-r-10"></i></a>';
         if($auth->hasRole('admin')){
 
             $buttons .= '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Asignar materias"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';

@@ -14,7 +14,7 @@
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('subject_id', __('models/course.fillable.name')) !!}
                                 {!! Form::select('subject_id', $subjects, null,['class' => 'form-control',  'v-on:change' => "changeSelect"]) !!}
-                                <div class="invalid-feedback" data-feedback="subject_id"></div>
+                                <div style="color:red" data-feedback="subject_id"></div>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

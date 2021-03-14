@@ -7,7 +7,7 @@ return [
         'name' => 'Nombre',
         'description' => 'Descripción',
     ],
-    'actions' => [
+    'action' => [
         'add' => 'Ingresar Nota',
         'edit' => 'Editar curso',
         'destroy' => 'Eliminar'

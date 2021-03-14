@@ -13,18 +13,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <!-- START REPEAT THIS COL -->
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('name', __('models/subject.fillable.name')) !!}
                                 {!! Form::text('name', $subject->name, ['class' => 'form-control']) !!}
-                                <p class="has-danger has-feedback" data-feedback="name"></p>
+                                <p style="color:red" data-feedback="name"></p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('description', __('models/subject.fillable.description')) !!}
-                                {!! Form::text('description', $subject->description, ['class' => 'form-control']) !!}
-                                <p class="invalid" data-feedback="description"></p>
+                                {!! Form::textarea('description', $subject->description, ['class' => 'form-control']) !!}
+                                <p style="color:red" data-feedback="description"></p>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

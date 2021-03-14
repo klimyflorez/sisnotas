@@ -15,7 +15,7 @@
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('value', __('models/course.fillable.name')) !!}
                                 {!! Form::text('value', null,['class' => 'form-control']) !!}
-                                <p class="invalid" data-feedback="value"></p>
+                                <p style="color:red" data-feedback="value"></p>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

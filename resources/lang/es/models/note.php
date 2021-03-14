@@ -11,6 +11,6 @@ return [
     'actions' => [
         'add' => 'Crear note',
         'edit' => 'Editar note',
-        'destroy' => 'Eliminar note'
+        'delete' => 'Eliminar note'
     ],
 ];

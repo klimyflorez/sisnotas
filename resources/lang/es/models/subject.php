@@ -7,9 +7,9 @@ return [
         'name' => 'Nombre',
         'description' => 'Descripción',
     ],
-    'actions' => [
+    'action' => [
         'add' => 'Crear materia',
         'edit' => 'Editar materia',
-        'destroy' => 'Eliminar materia'
+        'delete' => 'Eliminar materia'
     ],
 ];

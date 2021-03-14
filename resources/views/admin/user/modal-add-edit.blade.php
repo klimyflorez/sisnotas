@@ -25,7 +25,7 @@
                         <div class="form-group m-b-40 focused" data-feedback="first_name">
                             {!! Form::label('first_name', __('models/user.fillable.first_name')) !!}
                             {!! Form::text('first_name', $user->first_name, ['class' => 'form-control']) !!}
-                            <p class="help-block" data-feedback="first_name"></p>
+                            <p style="color:red" data-feedback="first_name"></p>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@
                         <div class="form-group m-b-40 focused" data-feedback="last_name">
                             {!! Form::label('last_name', __('models/user.fillable.last_name')) !!}
                             {!! Form::text('last_name', $user->last_name, ['class' => 'form-control']) !!}
-                            <p class="help-block" data-feedback="last_name"></p>
+                            <p style="color:red" data-feedback="last_name"></p>
                         </div>
                     </div>
 
@@ -41,7 +41,7 @@
                         <div class="form-group m-b-40 focused" data-feedback="phone">
                             {!! Form::label('phone', __('models/user.fillable.phone')) !!}
                             {!! Form::text('phone', $user->phone, ['class' => 'form-control']) !!}
-                            <p class="help-block" data-feedback="phone"></p>
+                            <p style="color:red" data-feedback="phone"></p>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                         <div class="form-group m-b-40 focused" data-feedback="email">
                             {!! Form::label('email', __('models/user.fillable.email')) !!}
                             {!! Form::text('email', $user->email, ['class' => 'form-control']) !!}
-                            <p class="help-block" data-feedback="email"></p>
+                            <p style="color:red" data-feedback="email"></p>
                         </div>
                     </div>
 

@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'module' => 'inscription|inscriptions',
+    'module' => 'Inscripción|Inscripciones',
     'fillable' => [
         'id' => '#',
         'student' => 'Estudiante',
         'course' => 'Curso'
     ],
-    'actions' => [
-        'add' => 'Crear inscription',
-        'edit' => 'Editar inscription',
-        'destroy' => 'Eliminar inscription'
+    'action' => [
+        'add' => 'Crear inscripción',
+        'edit' => 'Editar inscripción',
+        'delete' => 'Eliminar inscripción'
     ],
 ];

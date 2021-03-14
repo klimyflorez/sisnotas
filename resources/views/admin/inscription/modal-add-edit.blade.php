@@ -18,7 +18,7 @@
                                 {!! Form::text('item', $inscription->item, ['class' => 'form-control']) !!}
                                 <span class="bar"></span>
                                 {!! Form::label('item', __('models/inscription.fillable.item')) !!}
-                                <div class="invalid-feedback" data-feedback="item"></div>
+                                <div style="color:red" data-feedback="item"></div>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

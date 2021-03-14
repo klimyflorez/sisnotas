@@ -22,15 +22,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="m-b-0 float-left">Model</h4>
+                        <h4 id="title-name" class="m-b-0 float-left">Nombres Completo</h4>
                         <br>
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        You are logged in!
+                        <p id="full-name"></p>
+                        <br>
+                        <h5 id="title-letter">Letra más utilizada</h5>
+                        <p id="letter"></p>
                     </div>
                 </div>
             </div>
@@ -42,5 +39,25 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                url: 'https://randomuser.me/api/?results=5',
+                dataType: 'json',
+                error: function (data) {
+                    console.log(data);
+                    $('#title-name').text('Error API: '+data.responseText);
+                    $('#title-letter').css('display', 'none');
+                },
+                success: function(data) {
 
+                    (data.results).forEach(element=>{
+                        console.log("Nombres Completo: ",element.name.first+' '+element.name.last);
+                        $('#full-name').append(element.name.first+' '+element.name.last+'<br>')
+
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
