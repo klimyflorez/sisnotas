@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Course;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InscriptionRequest;
 use App\Inscription;
 use App\Student;
 use Illuminate\Http\Request;
@@ -58,10 +60,10 @@ class InscriptionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  InscriptionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InscriptionRequest  $request)
     {
         return $this->storeOrUpdate($request);
     }
@@ -98,6 +100,15 @@ class InscriptionController extends Controller
     public function update(Request $request, Inscription $inscription)
     {
         return $this->storeOrUpdate($request, $inscription->id);
+    }
+
+
+    public function openModalInscription($id){
+
+        $data['courses'] = Course::query()->pluck('name','id');
+        $data['student_id'] = $id;
+
+        return view('admin.inscription.modal-inscription', $data);
     }
 
     /**
@@ -146,9 +157,7 @@ class InscriptionController extends Controller
     {
         $data = $request->validated();
 
-        $data['success'] = Util::updateOrCreate(Student::class, $data, $id);
-
-        $data['refresh_table'] = true;
+        $data['success'] = Util::updateOrCreate(Inscription::class, $data, $id);
 
         Util::addToastToData($data);
 

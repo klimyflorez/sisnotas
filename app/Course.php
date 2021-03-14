@@ -19,6 +19,13 @@ class Course extends Model
     ];
 
     /**
+     * Allow uuid as primary key on users table
+     *
+     * @var bool
+     */
+    protected $allowUuid = true;
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function subjects()

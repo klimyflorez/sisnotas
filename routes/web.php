@@ -34,4 +34,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
 
     $router->get('subjects/{subject}/destroy-modal', 'SubjectController@modalDestroy')->name('subjects.destroy-modal');
     $router->resource('subjects', 'SubjectController');
+
+    $router->get('incriptions/{student}/open-modal', 'InscriptionController@openModalInscription')->name('incriptions.open-modal');
+    $router->resource('incriptions', 'InscriptionController');
 });

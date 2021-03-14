@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'module' => 'subject|subjects',
+    'module' => 'Materia|Materias',
     'fillable' => [
         'id' => '#',
         'name' => 'Nombre',
         'description' => 'Descripción',
     ],
     'actions' => [
-        'add' => 'Crear subject',
-        'edit' => 'Editar subject',
-        'destroy' => 'Eliminar subject'
+        'add' => 'Crear materia',
+        'edit' => 'Editar materia',
+        'destroy' => 'Eliminar materia'
     ],
 ];

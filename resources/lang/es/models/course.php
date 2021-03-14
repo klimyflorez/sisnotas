@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'module' => 'course|courses',
+    'module' => 'Curso|Cursos',
     'fillable' => [
         'id' => '#',
         'name' => 'Nombre',
         'description' => 'Descripción',
     ],
     'actions' => [
-        'add' => 'Crear course',
-        'edit' => 'Editar course',
-        'destroy' => 'Eliminar course'
+        'add' => 'Crear curso',
+        'edit' => 'Editar curso',
+        'destroy' => 'Eliminar curso'
     ],
 ];

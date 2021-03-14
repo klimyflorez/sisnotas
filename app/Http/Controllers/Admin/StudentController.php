@@ -163,8 +163,11 @@ class StudentController extends Controller
      */
     public function editActionColumn(Student $student)
     {
-        $tablePresenter = new TablePresenter();
+        $buttons = '<a class="open-modal" href="'. route('incriptions.open-modal', ['student'=>$student->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
 
-        return $tablePresenter->addEditDeleteActions('students', ['student' => $student->id]);
+        $tablePresenter = new TablePresenter();
+        $buttons .= '&nbsp;';
+
+        return $buttons.$tablePresenter->addEditDeleteActions('students', ['student' => $student->id]);
     }
 }

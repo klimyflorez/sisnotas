@@ -39,10 +39,10 @@ class StudentRequest extends FormRequest
     public function attributes()
     {
         return [
-            'identification' => __('models/course.fillable.identification'),
-            'first_name' => __('models/course.fillable.first_name'),
-            'last_name' => __('models/course.fillable.last_name'),
-            'phone' => __('models/course.fillable.phone'),
+            'identification' => __('models/student.fillable.identification'),
+            'first_name' => __('models/student.fillable.first_name'),
+            'last_name' => __('models/student.fillable.last_name'),
+            'phone' => __('models/student.fillable.phone'),
         ];
     }
 }

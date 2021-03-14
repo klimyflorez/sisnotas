@@ -27,6 +27,7 @@ class SubjectController extends Controller
             $query = Subject::query();
 
             return DataTables::eloquent($query)
+                ->addIndexColumn()
                 ->addColumn('action', [$this, 'editActionColumn'])
                 ->orderColumn('id', '-id $1')
                 ->rawColumns(['id', 'action'])
@@ -42,7 +43,7 @@ class SubjectController extends Controller
         ]) ;
         $data['table'] = $table;
 
-        return view('admin.user.index', $data);
+        return view('admin.subject.index', $data);
     }
 
     /**
@@ -132,9 +133,9 @@ class SubjectController extends Controller
      */
     protected function createOrEdit($id = null)
     {
-        $data['student'] = Subject::findOrNew($id);
+        $data['subject'] = Subject::findOrNew($id);
 
-        return view('admin.student.modal-add-edit', $data);
+        return view('admin.subject.modal-add-edit', $data);
     }
 
     /**

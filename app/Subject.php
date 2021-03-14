@@ -4,9 +4,10 @@ namespace App;
 
 use App\Traits\EventManager;
 use App\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Model;
 use Mappweb\Mappweb\Models\BaseModel;
 
-class Subject extends BaseModel
+class Subject extends Model
 {
     use UuidTrait, EventManager;
 
@@ -16,6 +17,13 @@ class Subject extends BaseModel
     protected $fillable = [
         'name', 'description'
     ];
+
+    /**
+     * Allow uuid as primary key on users table
+     *
+     * @var bool
+     */
+    protected $allowUuid = true;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

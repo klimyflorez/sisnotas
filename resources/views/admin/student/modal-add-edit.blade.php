@@ -18,33 +18,28 @@
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('identification', __('models/student.fillable.identification')) !!}
                                 {!! Form::number('identification', $student->identification, ['class' => 'form-control']) !!}
-                                <span class="bar"></span>
-                                <div class="invalid-feedback" data-feedback="identification"></div>
+                                <p class="invalid" data-feedback="identification"></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('first_name', __('models/student.fillable.first_name')) !!}
                                 {!! Form::text('first_name', $student->first_name, ['class' => 'form-control']) !!}
-                                <span class="bar"></span>
-                                <div class="invalid-feedback" data-feedback="first_name"></div>
+                                <p class="invalid" data-feedback="first_name"></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('last_name', __('models/student.fillable.last_name')) !!}
                                 {!! Form::text('last_name', $student->last_name, ['class' => 'form-control']) !!}
-                                <span class="bar"></span>
-                                <div class="invalid-feedback" data-feedback="last_name"></div>
+                                <p class="invalid" data-feedback="last_name"></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
                                 {!! Form::label('phone', __('models/student.fillable.phone')) !!}
                                 {!! Form::number('phone', $student->phone, ['class' => 'form-control']) !!}
-                                <span class="bar"></span>
-
-                                <div class="invalid-feedback" data-feedback="phone"></div>
+                                <p class="invalid" data-feedback="phone"></p>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->
