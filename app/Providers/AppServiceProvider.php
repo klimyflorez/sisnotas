@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Presenters\ProfilePresenter;
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,15 +21,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param UrlGenerator $url
      * @return void
      */
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
         Response::macro('crud', function ($object){
             return Response::json($object);
         });
-        $url->forceSchema('https');
+
         $this->registerPresenter();
     }
 

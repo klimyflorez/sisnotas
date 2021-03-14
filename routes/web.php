@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+URL::forceScheme('https');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
