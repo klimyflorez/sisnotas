@@ -25,10 +25,15 @@ class CourseController extends Controller
     {
         if ($request->ajax()) {
 
-            $subject = Auth::user()->subjects()->pluck('subjects.id');
-            $query = Course::query()->whereHas('subjects', function ($query) use($subject){
-                $query->whereIn('subjects.id',$subject);
-            });
+            $auth = Auth::user();
+            $query = Course::query();
+            if($auth->hasRole('teacher')){
+                $subject = $auth->subjects()->pluck('subjects.id');
+                $query->whereHas('subjects', function ($query) use($subject){
+                    $query->whereIn('subjects.id',$subject);
+                });
+            }
+
 
             return DataTables::eloquent($query)
                 ->addIndexColumn()
@@ -171,7 +176,7 @@ class CourseController extends Controller
         $buttons = '<a href="'. route('course-students.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Listar Estudiantes"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
         if($auth->hasRole('admin')){
 
-            $buttons .= '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Asginar materias"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+            $buttons .= '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Asignar materias"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
             $tablePresenter = new TablePresenter();
             $buttons .= '&nbsp;'.$tablePresenter->addEditDeleteActions('courses', ['course' => $course->id]); ;
         }

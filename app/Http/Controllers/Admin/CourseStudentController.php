@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Http\Controllers\Controller;
 use App\Inscription;
+use App\Student;
+use App\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mappweb\Mappweb\Helpers\Table;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -48,11 +51,17 @@ class CourseStudentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function create()
+    public function create(Course $course, Student $student)
     {
-        //
+        $inscriptions = Inscription::query()->where('course_id', $course->id)->where('student_id', $student->id)->latest();
+        $teacher = Auth::id();
+        $subject = $course->subjects()->where('user_id',$teacher)->first();
+
+        dd($subject);
+
+        return view('admin.course-student.modal-note' );
     }
 
     /**

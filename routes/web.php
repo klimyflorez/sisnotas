@@ -52,7 +52,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     $router->get('course-students/{course}/{student}', 'CourseStudentController@create')->name('course-student.note-modal');
 
     //$router->get('subject-teachers/{subject}/open-modal', 'SubjectTeacherController@openModalInscription')->name('subject-teachers.open-modal');
-    $router->get('subject-teachers/{subject}', 'SubjectTeacherController@index')->name('course-subjects.index');
+    $router->get('subject-teachers/{subject}', 'SubjectTeacherController@index')->name('subject-teachers.index');
     $router->get('subject-teachers/{subject}/create', 'SubjectTeacherController@create')->name('subject-teachers.create');
     $router->post('subject-teachers', 'SubjectTeacherController@store')->name('subject-teachers.store');
     //$router->get('inscriptions/{inscription}/destroy-modal', 'SubjectTeacherController@modalDestroy')->name('inscriptions.destroy-modal');
