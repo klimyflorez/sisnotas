@@ -53,9 +53,7 @@
                     (data.results).forEach(element=>{
                         //console.log("Nombres Completo: ",element.name.first+' '+element.name.last);
                         $('#full-name').append(element.name.first+' '+element.name.last+'<br>')
-
-
-
+                        
                     });
                 }
             });
