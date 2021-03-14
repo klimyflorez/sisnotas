@@ -30,7 +30,7 @@ class Course extends Model
      */
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class)->withPivot('user_id');
     }
 
     /**

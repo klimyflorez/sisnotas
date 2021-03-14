@@ -7,8 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Inscription;
 use App\Student;
 use App\Subject;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Mappweb\Mappweb\Helpers\Table;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -17,7 +21,7 @@ class CourseStudentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\Http\JsonResponse|View
      */
     public function index(Request $request, Table $table, Course $course)
     {
@@ -51,24 +55,24 @@ class CourseStudentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|Response|View
      */
     public function create(Course $course, Student $student)
     {
         $inscriptions = Inscription::query()->where('course_id', $course->id)->where('student_id', $student->id)->latest();
         $teacher = Auth::id();
-        $subject = $course->subjects()->where('user_id',$teacher)->first();
+        $subject = $course->subjects()->wherePivot('user_id', $teacher)->first();
 
-        dd($subject);
+        dd($subject->id);
 
-        return view('admin.course-student.modal-note' );
+        return view('admin.course-student.modal-note');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -79,7 +83,7 @@ class CourseStudentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -90,7 +94,7 @@ class CourseStudentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -102,7 +106,7 @@ class CourseStudentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -113,7 +117,7 @@ class CourseStudentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

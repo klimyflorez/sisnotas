@@ -162,7 +162,7 @@ class SubjectController extends Controller
      */
     public function editActionColumn(Subject $subject)
     {
-        $buttons = '<a href="'. route('course-subjects.index', ['subject'=>$subject->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir docentes"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+        $buttons = '<a href="'. route('subject-teachers.index', ['subject'=>$subject->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir docentes"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
 
         $tablePresenter = new TablePresenter();
 
