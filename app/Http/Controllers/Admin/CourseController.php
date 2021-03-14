@@ -163,7 +163,7 @@ class CourseController extends Controller
      */
     public function editActionColumn(Course $course)
     {
-        $buttons = '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+        $buttons = '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Asginar materias"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
         $tablePresenter = new TablePresenter();
         $buttons .= '&nbsp;';
 

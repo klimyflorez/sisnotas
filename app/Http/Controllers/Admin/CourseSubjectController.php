@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mappweb\Mappweb\Helpers\Table;
 use Mappweb\Mappweb\Helpers\Util;
@@ -35,6 +36,7 @@ class CourseSubjectController extends Controller
 
         $table->addColumn(['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => '#', 'searchable' => false, 'orderable' => false]);
         $table->addColumn(['data' => 'subject_name', 'name' => 'subject_name', 'title' => __('models/subject.fillable.name')]);
+        $table->addAction();
         $table->addParameters();
         $table->parameters([
             'processing' => true,
@@ -73,10 +75,12 @@ class CourseSubjectController extends Controller
             $course = Course::query()->find($request->get('course_id'));
             $subject = Subject::query()->find($request->get('subject_id'));
             $teacher = Auth::id();
-            $course->subjects()->attach($subject, ['id'=>Str::uuid(),'user_id'=>$teacher,'created_at'=>now(),'update_at'=>now()]);
+            $course->subjects()->attach($subject, ['id'=>Str::uuid(),'user_id'=>$teacher,'created_at'=>now(),'updated_at'=>now()]);
 
         }catch (\Exception $exception){
             $data['success'] = false;
+
+            dd($exception->getMessage());
         }
 
         $data['refresh_table'] = true;
@@ -122,17 +126,32 @@ class CourseSubjectController extends Controller
     }
 
     /**
+     * @param  \App\Course  $course
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function modalDestroy(Course $course, Subject  $subject)
+    {
+       // $data['id'] = //DB::table('course_subject')->where(['course_id' => $course->id, 'subject_id' => $subject->id])->first()->id;
+        $data['course'] = $course;
+
+        $data['subject'] = $subject;
+
+        return view('admin.course-subject.modal-destroy', $data);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course, Subject $subject)
+    public function destroy(Course $course, Subject  $subject)
     {
         $data['success'] = true;
 
         try {
             $course->subjects()->detach($subject);
+
         }catch (\Exception $exception){
             $data['success'] = false;
         }
@@ -151,7 +170,7 @@ class CourseSubjectController extends Controller
     public function editActionColumn($object)
     {
 
-        return '<a class="open-modal" href="'. route('course-subjects.destroy', ['course' => $object->course_id, 'subject'=>$object->subject_id]) .'" data-toggle="tooltip" title="'. __('models/course-subject.action.delete') .'"><i class="fa fa-close text-danger"></i></a>';
+        return '<a class="open-modal" href="'. route('course-subjects.destroy-modal', ['course' => $object->course_id, 'subject'=>$object->subject_id]) .'" data-toggle="tooltip" title="'. __('models/course-subject.action.delete') .'"><i class="fa fa-close text-danger"></i></a>';
 
     }
 

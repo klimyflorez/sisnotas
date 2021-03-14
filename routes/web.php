@@ -42,10 +42,11 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     $router->get('notes/{note}/destroy-modal', 'NoteController@modalDestroy')->name('notes.destroy-modal');
     $router->resource('notes', 'NoteController');
 
-    $router->get('course-subjects/{id}/destroy-modal', 'CourseSubjectController@modalDestroy')->name('course-subjects.destroy-modal');
+    $router->get('course-subjects/{course}/{subject}/destroy-modal', 'CourseSubjectController@modalDestroy')->name('course-subjects.destroy-modal');
     $router->get('course-subjects/{course}', 'CourseSubjectController@index')->name('course-subjects.index');
     $router->get('course-subjects/{course}/create', 'CourseSubjectController@create')->name('course-subjects.create');
     $router->post('course-subjects', 'CourseSubjectController@store')->name('course-subjects.store');
     $router->delete('course-subjects/{course}/{subject}', 'CourseSubjectController@destroy')->name('course-subjects.destroy');
-    //$router->resource('course-subjects', 'CourseSubjectController');
+
+    $router->get('course-student/{course}', 'CourseStudentController@index')->name('course-student.index');
 });
