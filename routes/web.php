@@ -37,4 +37,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
 
     $router->get('incriptions/{student}/open-modal', 'InscriptionController@openModalInscription')->name('incriptions.open-modal');
     $router->resource('incriptions', 'InscriptionController');
+
+    $router->get('notes/{note}/destroy-modal', 'NoteController@modalDestroy')->name('notes.destroy-modal');
+    $router->resource('notes', 'NoteController');
 });

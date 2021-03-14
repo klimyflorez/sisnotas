@@ -17,6 +17,18 @@ class Student extends Model
         'first_name', 'last_name', 'identification', 'phone'
     ];
 
+    protected $appends = [
+        'full_name'
+    ];
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     /**
      * Allow uuid as primary key on users table
      *
