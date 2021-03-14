@@ -1,4 +1,4 @@
-{!! Form::open(['class' => 'crud_ajax', 'url' => route('inscriptions.store'), 'method' => 'POST']) !!}
+{!! Form::open(['class' => 'crud_ajax', 'url' => route('course-subjects.store'), 'method' => 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -8,13 +8,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                    {!! Form::hidden('student_id', $student_id) !!}
+                    {!! Form::hidden('course_id', $course_id) !!}
                         <!-- START REPEAT THIS COL -->
                         <div class="col-md-6">
                             <div class="form-group m-b-40 focused">
-                                {!! Form::label('course_id', __('models/course.fillable.name')) !!}
-                                {!! Form::select('course_id', $courses, null,['class' => 'form-control',  'v-on:change' => "changeSelect"]) !!}
-                                <div class="invalid-feedback" data-feedback="course_id"></div>
+                                {!! Form::label('subject_id', __('models/course.fillable.name')) !!}
+                                {!! Form::select('subject_id', $subjects, null,['class' => 'form-control',  'v-on:change' => "changeSelect"]) !!}
+                                <div class="invalid-feedback" data-feedback="subject_id"></div>
                             </div>
                         </div>
                         <!-- END REPEAT THIS COL -->

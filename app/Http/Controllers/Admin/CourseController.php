@@ -49,7 +49,7 @@ class CourseController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
@@ -158,15 +158,15 @@ class CourseController extends Controller
     }
 
     /**
-     * @param Course $student
+     * @param Course $course
      * @return string
      */
-    public function editActionColumn(Course $student)
+    public function editActionColumn(Course $course)
     {
-        $buttons = '<a class="open-modal" href="'. route('inscriptions.open-modal', ['student'=>$student->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
+        $buttons = '<a href="'. route('course-subjects.index', ['course'=>$course->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
         $tablePresenter = new TablePresenter();
         $buttons .= '&nbsp;';
 
-        return $buttons.$tablePresenter->addEditDeleteActions('courses', ['course' => $student->id]);
+        return $buttons.$tablePresenter->addEditDeleteActions('courses', ['course' => $course->id]);
     }
 }
