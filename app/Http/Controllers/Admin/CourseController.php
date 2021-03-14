@@ -25,7 +25,10 @@ class CourseController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Course::query();
+            $subject = Auth::user()->subjects()->pluck('subjects.id');
+            $query = Course::query()->whereHas('subjects', function ($query) use($subject){
+                $query->whereIn('subjects.id',$subject);
+            });
 
             return DataTables::eloquent($query)
                 ->addIndexColumn()
