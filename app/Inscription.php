@@ -46,8 +46,8 @@ class Inscription extends Model
     public static function getColumnsTable(){
         return [
             ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => '#', 'searchable' => false, 'orderable' => false],
-            ['data' => 'course.name', 'name' => 'course.name', 'title' => __('models/course.fillable.course')],
-            ['data' => 'student.full_name', 'name' => 'student.full_name', 'title' => __('models/course.fillable.student')],
+            ['data' => 'course.name', 'name' => 'course.name', 'title' => __('models/inscription.fillable.course')],
+            ['data' => 'student.full_name', 'name' => 'student.full_name', 'title' => __('models/inscription.fillable.student')],
         ];
     }
 }

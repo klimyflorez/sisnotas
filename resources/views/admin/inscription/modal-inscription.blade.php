@@ -1,4 +1,4 @@
-{!! Form::open(['class' => 'crud_ajax', 'url' => route('incriptions.store'), 'method' => 'POST']) !!}
+{!! Form::open(['class' => 'crud_ajax', 'url' => route('inscriptions.store'), 'method' => 'POST']) !!}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

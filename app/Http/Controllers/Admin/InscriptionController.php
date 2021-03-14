@@ -29,6 +29,7 @@ class InscriptionController extends Controller
             $query = Inscription::query()->with(['course', 'student']);
 
             return DataTables::eloquent($query)
+                ->addIndexColumn()
                 ->addColumn('action', [$this, 'editActionColumn'])
                 ->orderColumn('id', '-id $1')
                 ->rawColumns(['id', 'action'])
@@ -170,8 +171,8 @@ class InscriptionController extends Controller
      */
     public function editActionColumn(Inscription $inscription)
     {
-        $tablePresenter = new TablePresenter();
 
-        return $tablePresenter->addEditDeleteActions('inscriptions', ['inscription' => $inscription->id]);
+        return '<a class="open-modal" href="'. route('inscriptions.destroy-modal', ['inscription' => $inscription->id]) .'" data-toggle="tooltip" title="'. __('models/inscription.action.delete') .'"><i class="fa fa-close text-danger"></i></a>';
+
     }
 }

@@ -29,14 +29,15 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     $router->get('students/{student}/destroy-modal', 'StudentController@modalDestroy')->name('students.destroy-modal');
     $router->resource('students', 'StudentController');
 
-    $router->get('courses/{course}/destroy-modal', 'CourseController@modalDestroy')->name('courses.destroy-modal');
-    $router->resource('courses', 'CourseController');
-
     $router->get('subjects/{subject}/destroy-modal', 'SubjectController@modalDestroy')->name('subjects.destroy-modal');
     $router->resource('subjects', 'SubjectController');
 
-    $router->get('incriptions/{student}/open-modal', 'InscriptionController@openModalInscription')->name('incriptions.open-modal');
-    $router->resource('incriptions', 'InscriptionController');
+    $router->get('courses/{course}/destroy-modal', 'CourseController@modalDestroy')->name('courses.destroy-modal');
+    $router->resource('courses', 'CourseController');
+
+    $router->get('inscriptions/{student}/open-modal', 'InscriptionController@openModalInscription')->name('inscriptions.open-modal');
+    $router->get('inscriptions/{inscription}/destroy-modal', 'InscriptionController@modalDestroy')->name('inscriptions.destroy-modal');
+    $router->resource('inscriptions', 'InscriptionController');
 
     $router->get('notes/{note}/destroy-modal', 'NoteController@modalDestroy')->name('notes.destroy-modal');
     $router->resource('notes', 'NoteController');

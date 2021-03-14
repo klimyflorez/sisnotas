@@ -101,6 +101,7 @@ class CourseController extends Controller
         return $this->storeOrUpdate($request, $course->id);
     }
 
+
     /**
      * @param  \App\Course  $course
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -162,8 +163,10 @@ class CourseController extends Controller
      */
     public function editActionColumn(Course $student)
     {
+        $buttons = '<a class="open-modal" href="'. route('inscriptions.open-modal', ['student'=>$student->id]) .'" data-toggle="tooltip" data-placement="right" title="Inscribir"><i class="fa fa-check-square-o text-inverse m-r-10"></i></a>';
         $tablePresenter = new TablePresenter();
+        $buttons .= '&nbsp;';
 
-        return $tablePresenter->addEditDeleteActions('courses', ['course' => $student->id]);
+        return $buttons.$tablePresenter->addEditDeleteActions('courses', ['course' => $student->id]);
     }
 }
