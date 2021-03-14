@@ -45,15 +45,16 @@
                 url: 'https://randomuser.me/api/?results=5',
                 dataType: 'json',
                 error: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#title-name').text('Error API: '+data.responseText);
                     $('#title-letter').css('display', 'none');
                 },
                 success: function(data) {
-
                     (data.results).forEach(element=>{
-                        console.log("Nombres Completo: ",element.name.first+' '+element.name.last);
+                        //console.log("Nombres Completo: ",element.name.first+' '+element.name.last);
                         $('#full-name').append(element.name.first+' '+element.name.last+'<br>')
+
+
 
                     });
                 }
