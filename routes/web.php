@@ -52,6 +52,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
 
     $router->get('course-students/{course}', 'CourseStudentController@index')->name('course-students.index');
     $router->get('course-students/{course}/{student}', 'CourseStudentController@create')->name('course-student.note-modal');
+    $router->get('course-students', 'CourseStudentController@store')->name('course-student.store');
 
     //$router->get('subject-teachers/{subject}/open-modal', 'SubjectTeacherController@openModalInscription')->name('subject-teachers.open-modal');
     $router->get('subject-teachers/{subject}', 'SubjectTeacherController@index')->name('subject-teachers.index');
