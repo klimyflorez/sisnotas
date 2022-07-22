@@ -1,16 +1,16 @@
 <?php
 
 return [
-    'module' => 'note|notes',
+    'module' => 'Nota|Notas',
     'fillable' => [
         'id' => '#',
         'student' => 'Estudiante',
         'subject' => 'Asignatura',
         'value' => 'Nota',
     ],
-    'actions' => [
-        'add' => 'Crear note',
-        'edit' => 'Editar note',
-        'delete' => 'Eliminar note'
+    'action' => [
+        'add' => 'Crear nota',
+        'edit' => 'Editar nota',
+        'delete' => 'Eliminar nota'
     ],
 ];

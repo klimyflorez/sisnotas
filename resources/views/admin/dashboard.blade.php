@@ -50,11 +50,24 @@
                     $('#title-letter').css('display', 'none');
                 },
                 success: function(data) {
+                    const list = [];
+                    var full_name='';
+                    var vecesRepetido=0;
+                    var letraRepetida='';
                     (data.results).forEach(element=>{
-                        //console.log("Nombres Completo: ",element.name.first+' '+element.name.last);
                         $('#full-name').append(element.name.first+' '+element.name.last+'<br>')
-                        
+                        //list.push(element.name.first+' '+element.name.last);
+                        full_name += element.name.first+' '+element.name.last;
                     });
+                    for(var i = 0; i < full_name.toLowerCase().length; i++){
+                        var re = new RegExp("[^"+ full_name.toLowerCase()[i] +"]","g");
+                        var repetido=full_name.toLowerCase().replace(re, "");
+                        if(repetido.length >= vecesRepetido){
+                            vecesRepetido=repetido.length;
+                            letraRepetida=repetido[0];
+                        }
+                    }
+                    $('#letter').text(letraRepetida);
                 }
             });
         });

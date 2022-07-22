@@ -17,7 +17,7 @@
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteEngine on
+
     RewriteCond %{REQUEST_URI} !^public
     #RewriteRule ^(.*)$ public/$1 [L]
     RewriteRule ^ index.php [L]

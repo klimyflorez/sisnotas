@@ -17,12 +17,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-URL::forceScheme('https');
+//URL::forceScheme('https');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 
 Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function (\Illuminate\Routing\Router $router) {
     $router->get('users/{user}/destroy-modal', 'UserController@modalDestroy')->name('users.destroy-modal');
@@ -52,13 +51,12 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
 
     $router->get('course-students/{course}', 'CourseStudentController@index')->name('course-students.index');
     $router->get('course-students/{course}/{student}', 'CourseStudentController@create')->name('course-student.note-modal');
+    $router->get('course-students', 'CourseStudentController@store')->name('course-student.store');
 
     //$router->get('subject-teachers/{subject}/open-modal', 'SubjectTeacherController@openModalInscription')->name('subject-teachers.open-modal');
     $router->get('subject-teachers/{subject}', 'SubjectTeacherController@index')->name('subject-teachers.index');
     $router->get('subject-teachers/{subject}/create', 'SubjectTeacherController@create')->name('subject-teachers.create');
     $router->post('subject-teachers', 'SubjectTeacherController@store')->name('subject-teachers.store');
     //$router->get('inscriptions/{inscription}/destroy-modal', 'SubjectTeacherController@modalDestroy')->name('inscriptions.destroy-modal');
-
-
 
 });

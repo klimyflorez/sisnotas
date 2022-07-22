@@ -12,8 +12,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Mappweb\Mappweb\Helpers\Table;
+use Mappweb\Mappweb\Helpers\Util;
 use Yajra\DataTables\Facades\DataTables;
 
 class CourseStudentController extends Controller
@@ -63,9 +65,12 @@ class CourseStudentController extends Controller
         $teacher = Auth::id();
         $subject = $course->subjects()->wherePivot('user_id', $teacher)->first();
 
-        dd($subject->id);
+        $data['inscription_id'] = $inscriptions;
+        $data['subject_id']= $subject->id;
 
-        return view('admin.course-student.modal-note');
+        //dd($inscriptions);
+
+        return view('admin.course-student.modal-note', $data);
     }
 
     /**
@@ -76,7 +81,23 @@ class CourseStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data['success'] = true;
+
+        try {
+            /*$course = Course::query()->find($request->get('course_id'));
+            $subject = Subject::query()->find($request->get('subject_id'));
+            $teacher = Auth::id();
+            $course->subjects()->attach($subject, ['id'=>Str::uuid(),'user_id'=>$teacher,'created_at'=>now(),'updated_at'=>now()]);*/
+
+        }catch (\Exception $exception){
+            $data['success'] = false;
+        }
+
+        $data['refresh_table'] = true;
+
+        Util::addToastToData($data);
+
+        return response()->crud($data);
     }
 
     /**
