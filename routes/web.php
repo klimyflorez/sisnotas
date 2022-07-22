@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-URL::forceScheme('https');
+//URL::forceScheme('https');
 
 Auth::routes();
 
